@@ -35,7 +35,7 @@ This folder is organized by 4 more specific folders, and each will be described 
 
 ### Running Migration to Data Warehouse
 
-1. Run XAMPP and import database from `Data/soccer.sql.zip`. This will create `soccer` database.
+1. Run XAMPP and import database from `Data/soccer.zip`. This will create `soccer` database. Follow the guide from [this link](https://stackoverflow.com/questions/44366004/fatal-error-out-of-memory-allocated-761004032-tried-to-allocate-755370216-by) to import large database file to XAMPP's MySQL.
 2. Create database with name `soccer_dwh`.
 3. [Download](https://sourceforge.net/projects/pentaho/) and open Pentaho Data Integration.
 4. Open transformations and run them with respect to this ordering:
