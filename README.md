@@ -36,14 +36,14 @@ This folder is organized by 4 more specific folders, and each will be described 
 ### Running Migration to Data Warehouse
 
 1. Run XAMPP and import database from `Data/soccer.zip`. This will create `soccer` database. Follow the guide from [this link](https://stackoverflow.com/questions/44366004/fatal-error-out-of-memory-allocated-761004032-tried-to-allocate-755370216-by) to import large database file to XAMPP's MySQL.
-2. Create database with name `soccer_dwh`.
+2. Run all scripts in `Transformation/Scripts` folder in ordered manner according to file name. Those script initializes the data warehouse schema.
 3. [Download](https://sourceforge.net/projects/pentaho/) and open Pentaho Data Integration.
-4. Open transformations and run them with respect to this ordering:
+4. Open transformations in `Transformation` folder and run them with respect to this ordering:
 	- `month_dim.ktr`
 	- `season_dim.ktr`
 	- `league_dim.ktr`
 	- `team_dim.ktr`
-	- `home_team_goals_fact.ktr`
+	- `match_goals_fact.ktr`
 
 ---
 
@@ -57,25 +57,20 @@ This folder is organized by 4 more specific folders, and each will be described 
 6. `month_dim` table in `soccer_dwh` database should contain **12** rows.
 7. `season_dim` table in `soccer_dwh` database should contain **8** rows.
 8. `league_dim` table in `soccer_dwh` database should contain **11** rows.
-9. `team_dim` table in `soccer_dwh` database should contain **299** rows.
-10. `home_team_goals_fact` table in `soccer_dwh` database should contain **14,046** rows.
+9. `team_dim` table in `soccer_dwh` database should contain **288** rows.
+10. `match_goals_fact` table in `soccer_dwh` database should contain **25,629** rows.
 
 Should you require an SQL query to validate the migrated results, you may do so with this query:
 
 ~~~~sql
-SELECT
-  `season_id` AS `season`,
-  `team`.`team_fifa_api_id` AS `team`,
-  MONTHNAME(`date`) AS `month`,
-  SUM(`home_team_goal`) AS `goal_for`,
-  SUM(`away_team_goal`) AS `goal_against`,
-  (SUM(`home_team_goal`) - SUM(`away_team_goal`)) AS `total_goal`
+SELECT *
 FROM `match`
-  JOIN `team`
-    ON `match`.`home_team_api_id` = `team`.`team_api_id`
-GROUP BY `team`, `season`, `month`
-  HAVING `team`.`team_fifa_api_id` IS NOT NULL
-ORDER BY `team`, `month`, `season`
+WHERE 
+	home_team_api_id NOT IN 
+		(SELECT team_api_id FROM `team` WHERE team_fifa_api_id IS NULL)
+AND
+	away_team_api_id NOT IN 
+		(SELECT team_api_id FROM `team` WHERE team_fifa_api_id IS NULL)
 ~~~~
 
-The query above should be done in `soccer` database, then compare the results with the ones in `home_team_goals_fact` table in `soccer_dwh` database.
+The query above should be done in `soccer` database, then compare the results with the ones in `match_goals_fact` table in `soccer_dwh` database.

@@ -540,11 +540,6 @@
   </connection>
   <order>
     <hop>
-      <from>Get date data from match</from>
-      <to>Sort dates</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Select unique date</from>
       <to>Get month of date</to>
       <enabled>Y</enabled>
@@ -560,13 +555,13 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Remove original date value</from>
-      <to>Sort month_index</to>
+      <from>Sort month_index</from>
+      <to>Get unique month_index</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort month_index</from>
-      <to>Get unique month_index</to>
+      <from>Remove original date value</from>
+      <to>Sort month_index</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -579,9 +574,19 @@
       <to>Save to month_dim</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Get data from match</from>
+      <to>Select field date</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select field date</from>
+      <to>Sort dates</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
-    <name>Get date data from match</name>
+    <name>Get data from match</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -592,7 +597,7 @@
       <schema_name/>
     </partitioning>
     <connection>soccer_mysql</connection>
-    <sql>SELECT `date` FROM `match`</sql>
+    <sql>SELECT * FROM `match`</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -607,7 +612,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>64</xloc>
+      <xloc>80</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
@@ -648,8 +653,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>96</yloc>
+      <xloc>192</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -683,8 +688,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>208</yloc>
+      <xloc>576</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -761,8 +766,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>816</xloc>
-      <yloc>208</yloc>
+      <xloc>720</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -792,8 +797,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
-      <yloc>96</yloc>
+      <xloc>320</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -840,8 +845,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
-      <yloc>208</yloc>
+      <xloc>864</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -875,8 +880,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>96</yloc>
+      <xloc>80</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -917,7 +922,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>176</xloc>
+      <xloc>304</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
@@ -959,8 +964,378 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
-      <yloc>208</yloc>
+      <xloc>448</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select field date</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>id</name>
+      </remove>
+      <remove>
+        <name>country_id</name>
+      </remove>
+      <remove>
+        <name>league_id</name>
+      </remove>
+      <remove>
+        <name>stage</name>
+      </remove>
+      <remove>
+        <name>match_api_id</name>
+      </remove>
+      <remove>
+        <name>home_team_api_id</name>
+      </remove>
+      <remove>
+        <name>away_team_api_id</name>
+      </remove>
+      <remove>
+        <name>home_team_goal</name>
+      </remove>
+      <remove>
+        <name>away_team_goal</name>
+      </remove>
+      <remove>
+        <name>home_player_X1</name>
+      </remove>
+      <remove>
+        <name>home_player_X2</name>
+      </remove>
+      <remove>
+        <name>home_player_X3</name>
+      </remove>
+      <remove>
+        <name>home_player_X4</name>
+      </remove>
+      <remove>
+        <name>home_player_X5</name>
+      </remove>
+      <remove>
+        <name>home_player_X6</name>
+      </remove>
+      <remove>
+        <name>home_player_X7</name>
+      </remove>
+      <remove>
+        <name>home_player_X8</name>
+      </remove>
+      <remove>
+        <name>home_player_X9</name>
+      </remove>
+      <remove>
+        <name>home_player_X10</name>
+      </remove>
+      <remove>
+        <name>home_player_X11</name>
+      </remove>
+      <remove>
+        <name>away_player_X1</name>
+      </remove>
+      <remove>
+        <name>away_player_X2</name>
+      </remove>
+      <remove>
+        <name>away_player_X3</name>
+      </remove>
+      <remove>
+        <name>away_player_X4</name>
+      </remove>
+      <remove>
+        <name>away_player_X5</name>
+      </remove>
+      <remove>
+        <name>away_player_X6</name>
+      </remove>
+      <remove>
+        <name>away_player_X7</name>
+      </remove>
+      <remove>
+        <name>away_player_X8</name>
+      </remove>
+      <remove>
+        <name>away_player_X9</name>
+      </remove>
+      <remove>
+        <name>away_player_X10</name>
+      </remove>
+      <remove>
+        <name>away_player_X11</name>
+      </remove>
+      <remove>
+        <name>home_player_Y1</name>
+      </remove>
+      <remove>
+        <name>home_player_Y2</name>
+      </remove>
+      <remove>
+        <name>home_player_Y3</name>
+      </remove>
+      <remove>
+        <name>home_player_Y4</name>
+      </remove>
+      <remove>
+        <name>home_player_Y5</name>
+      </remove>
+      <remove>
+        <name>home_player_Y6</name>
+      </remove>
+      <remove>
+        <name>home_player_Y7</name>
+      </remove>
+      <remove>
+        <name>home_player_Y8</name>
+      </remove>
+      <remove>
+        <name>home_player_Y9</name>
+      </remove>
+      <remove>
+        <name>home_player_Y10</name>
+      </remove>
+      <remove>
+        <name>home_player_Y11</name>
+      </remove>
+      <remove>
+        <name>away_player_Y1</name>
+      </remove>
+      <remove>
+        <name>away_player_Y2</name>
+      </remove>
+      <remove>
+        <name>away_player_Y3</name>
+      </remove>
+      <remove>
+        <name>away_player_Y4</name>
+      </remove>
+      <remove>
+        <name>away_player_Y5</name>
+      </remove>
+      <remove>
+        <name>away_player_Y6</name>
+      </remove>
+      <remove>
+        <name>away_player_Y7</name>
+      </remove>
+      <remove>
+        <name>away_player_Y8</name>
+      </remove>
+      <remove>
+        <name>away_player_Y9</name>
+      </remove>
+      <remove>
+        <name>away_player_Y10</name>
+      </remove>
+      <remove>
+        <name>away_player_Y11</name>
+      </remove>
+      <remove>
+        <name>home_player_1</name>
+      </remove>
+      <remove>
+        <name>home_player_2</name>
+      </remove>
+      <remove>
+        <name>home_player_3</name>
+      </remove>
+      <remove>
+        <name>home_player_4</name>
+      </remove>
+      <remove>
+        <name>home_player_5</name>
+      </remove>
+      <remove>
+        <name>home_player_6</name>
+      </remove>
+      <remove>
+        <name>home_player_7</name>
+      </remove>
+      <remove>
+        <name>home_player_8</name>
+      </remove>
+      <remove>
+        <name>home_player_9</name>
+      </remove>
+      <remove>
+        <name>home_player_10</name>
+      </remove>
+      <remove>
+        <name>home_player_11</name>
+      </remove>
+      <remove>
+        <name>away_player_1</name>
+      </remove>
+      <remove>
+        <name>away_player_2</name>
+      </remove>
+      <remove>
+        <name>away_player_3</name>
+      </remove>
+      <remove>
+        <name>away_player_4</name>
+      </remove>
+      <remove>
+        <name>away_player_5</name>
+      </remove>
+      <remove>
+        <name>away_player_6</name>
+      </remove>
+      <remove>
+        <name>away_player_7</name>
+      </remove>
+      <remove>
+        <name>away_player_8</name>
+      </remove>
+      <remove>
+        <name>away_player_9</name>
+      </remove>
+      <remove>
+        <name>away_player_10</name>
+      </remove>
+      <remove>
+        <name>away_player_11</name>
+      </remove>
+      <remove>
+        <name>goal</name>
+      </remove>
+      <remove>
+        <name>shoton</name>
+      </remove>
+      <remove>
+        <name>shotoff</name>
+      </remove>
+      <remove>
+        <name>foulcommit</name>
+      </remove>
+      <remove>
+        <name>card</name>
+      </remove>
+      <remove>
+        <name>cross</name>
+      </remove>
+      <remove>
+        <name>corner</name>
+      </remove>
+      <remove>
+        <name>possession</name>
+      </remove>
+      <remove>
+        <name>B365H</name>
+      </remove>
+      <remove>
+        <name>B365D</name>
+      </remove>
+      <remove>
+        <name>B365A</name>
+      </remove>
+      <remove>
+        <name>BWH</name>
+      </remove>
+      <remove>
+        <name>BWD</name>
+      </remove>
+      <remove>
+        <name>BWA</name>
+      </remove>
+      <remove>
+        <name>IWH</name>
+      </remove>
+      <remove>
+        <name>IWD</name>
+      </remove>
+      <remove>
+        <name>IWA</name>
+      </remove>
+      <remove>
+        <name>LBH</name>
+      </remove>
+      <remove>
+        <name>LBD</name>
+      </remove>
+      <remove>
+        <name>LBA</name>
+      </remove>
+      <remove>
+        <name>PSH</name>
+      </remove>
+      <remove>
+        <name>PSD</name>
+      </remove>
+      <remove>
+        <name>PSA</name>
+      </remove>
+      <remove>
+        <name>WHH</name>
+      </remove>
+      <remove>
+        <name>WHD</name>
+      </remove>
+      <remove>
+        <name>WHA</name>
+      </remove>
+      <remove>
+        <name>SJH</name>
+      </remove>
+      <remove>
+        <name>SJD</name>
+      </remove>
+      <remove>
+        <name>SJA</name>
+      </remove>
+      <remove>
+        <name>VCH</name>
+      </remove>
+      <remove>
+        <name>VCD</name>
+      </remove>
+      <remove>
+        <name>VCA</name>
+      </remove>
+      <remove>
+        <name>GBH</name>
+      </remove>
+      <remove>
+        <name>GBD</name>
+      </remove>
+      <remove>
+        <name>GBA</name>
+      </remove>
+      <remove>
+        <name>BSH</name>
+      </remove>
+      <remove>
+        <name>BSD</name>
+      </remove>
+      <remove>
+        <name>BSA</name>
+      </remove>
+      <remove>
+        <name>season_id</name>
+      </remove>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

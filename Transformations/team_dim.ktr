@@ -539,28 +539,33 @@
   </connection>
   <order>
     <hop>
-      <from>Get team data</from>
-      <to>Remove id and rename fields</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Remove long_name and short_name</from>
-      <to>Rename team_id to id</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Rename team_id to id</from>
-      <to>Save to team_dim</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Remove id and rename fields</from>
+      <from>Rename fields</from>
       <to>Join short and long name</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Join short and long name</from>
       <to>Remove long_name and short_name</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Remove long_name and short_name</from>
+      <to>Save to team_dim</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get team data</from>
+      <to>Select non-null fifa_id team</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select non-null fifa_id team</from>
+      <to>Rename fields</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select non-null fifa_id team</from>
+      <to>Throw away from processing</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -591,8 +596,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>96</xloc>
-      <yloc>160</yloc>
+      <xloc>80</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -677,13 +682,72 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>160</yloc>
+      <xloc>528</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Remove id and rename fields</name>
+    <name>Throw away from processing</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>224</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Remove long_name and short_name</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>long_name</name>
+      </remove>
+      <remove>
+        <name>short_name</name>
+      </remove>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>64</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Rename fields</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -721,87 +785,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>240</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Remove long_name and short_name</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>long_name</name>
-      </remove>
-      <remove>
-        <name>short_name</name>
-      </remove>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Rename team_id to id</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>team_id</name>
-        <rename>id</rename>
-        <type>None</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>784</xloc>
-      <yloc>160</yloc>
+      <xloc>400</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -835,10 +820,6 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>id</column_name>
-        <stream_name>id</stream_name>
-      </field>
-      <field>
         <column_name>fifa_id</column_name>
         <stream_name>fifa_id</stream_name>
       </field>
@@ -856,8 +837,43 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>912</xloc>
-      <yloc>160</yloc>
+      <xloc>896</xloc>
+      <yloc>64</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select non-null fifa_id team</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Rename fields</send_true_to>
+    <send_false_to>Throw away from processing</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>team_fifa_api_id</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>224</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
