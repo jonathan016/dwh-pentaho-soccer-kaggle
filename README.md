@@ -1,4 +1,4 @@
-# PENTAHO DATA INTEGRATION
+# Data Warehouse Creation
 
 ---
 
@@ -16,6 +16,8 @@ Dataset in this project is obtained from [Kaggle](https://www.kaggle.com/hugomat
 * [Folder Structure](#folder-structure)
 * [Running Migration to Data Warehouse](#running-migration-to-data-warehouse)
 * [Validation of Result](#validation-of-result)
+* [Opening Dashboard](#opening-dashboard)
+* [Opening Report](#opening-report)
 
 ---
 
@@ -38,7 +40,8 @@ This folder is organized by 4 more specific folders, and each will be described 
 1. Run XAMPP and import database from `Data/soccer.zip`. This will create `soccer` database. Follow the guide from [this link](https://stackoverflow.com/questions/44366004/fatal-error-out-of-memory-allocated-761004032-tried-to-allocate-755370216-by) to import large database file to XAMPP's MySQL.
 2. Run all scripts in `Transformation/Scripts` folder in ordered manner according to file name. Those script initializes the data warehouse schema.
 3. [Download](https://sourceforge.net/projects/pentaho/) and open Pentaho Data Integration.
-4. Open transformations in `Transformation` folder and run them with respect to this ordering:
+4. Copy binaries in `Other Utilities` folder to `lib` in Pentaho Data Integration folder.
+5. Open transformations in `Transformation` folder and run them with respect to this ordering:
 	- `month_dim.ktr`
 	- `season_dim.ktr`
 	- `league_dim.ktr`
@@ -74,3 +77,18 @@ AND
 ~~~~
 
 The query above should be done in `soccer` database, then compare the results with the ones in `match_goals_fact` table in `soccer_dwh` database.
+
+### Opening Dashboard
+
+1. [Register](https://www.qlik.com/us/try-or-buy/download-qlik-sense) for Qlik Sense account.
+2. [Download](https://www.qlik.com/us/try-or-buy/download-qlik-sense) Qlik Sense Desktop, and do login with registered data.
+3. Put the `soccer_dashboard.qvf` file on `C:\Users\<username>\Documents\Qlik\Sense\Apps` folder on Windows.
+4. Open Qlik Sense, you should be able to see the project.
+5. Open `Analysis` tab.
+
+### Opening Report
+
+1. [Download](https://sourceforge.net/projects/pentaho/files/Report%20Designer/) Pentaho Report Designer.
+2. Copy binaries in `Other Utilities` folder to `lib` in Pentaho Report Designer folder.
+3. Open Pentaho Report Designer.
+4. Open all reports in folder `Report` with extension `.prpt`.
